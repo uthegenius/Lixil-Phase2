@@ -1,0 +1,52 @@
+html {
+    background: #fff;
+}
+
+/**
+ * SLDS Overrides
+ */
+
+.slds-scope {
+    height: 350px;
+    overflow-y: auto;
+}
+
+.slds-notification-container {
+    position: relative;
+    width: 100%;
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+}
+
+.slds-notification {
+    width: 100%;
+}
+
+
+/**
+ * Custom Scrollbar Styles
+ */
+
+.slds-scope::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.slds-scope::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+.slds-scope::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(left, #fff, #e4e4e4);
+    border: 1px solid #aaa;
+}
+
+.slds-scope::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
+
+.slds-scope::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(left, #22ADD4, #1E98BA);
+}
