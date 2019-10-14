@@ -31,8 +31,7 @@ public class AccountTrgHelper{
 
     //Constructor
     public AccountTrgHelper(){
-        populateRecordTypeSet();      
-        System.debug('test hb');  
+        populateRecordTypeSet();     
     }
 
     //Method To Populate Set collection
