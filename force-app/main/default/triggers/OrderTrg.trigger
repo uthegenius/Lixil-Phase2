@@ -21,13 +21,13 @@ trigger OrderTrg on Order (before insert, before update, after insert, after upd
     // After Insert
     else if(Trigger.isInsert && Trigger.isAfter)
     {
-        et4ae5.triggerUtility.automate('Order');
+        //et4ae5.triggerUtility.automate('Order');
     }
     
     // After Update
     else if(Trigger.isUpdate && Trigger.isAfter)
     {
-        et4ae5.triggerUtility.automate('Order');
+        //et4ae5.triggerUtility.automate('Order');
     }
     
 }

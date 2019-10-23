@@ -52,7 +52,10 @@ trigger QuoteLineItemTrg on QuoteLineItem (before insert, after insert, after up
             for (QuoteLineItem qli : Trigger.New)
             {
                 setQuoteId.add(qli.QuoteId);
-                setProjectId.add(qli.Project_Id__c);      
+                if(string.isNotBlank(qli.Project_Id__c))
+                {
+                	setProjectId.add(qli.Project_Id__c);     
+                }
             }            
         }
         

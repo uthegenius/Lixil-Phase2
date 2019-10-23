@@ -86,7 +86,8 @@ trigger TaskSave on Task  (after update, before insert, before update, after ins
             {
                 for (Opportunity op : listOpp)
                 {
-                    op.StageName = 'Closed Won';
+                    op.StageName = 'Closed';
+                    op.Bypass_Validation_Rules__c = true;
                     op.TaskCompletedOn__c = Date.today();
                     listOpptoUpdate.add(op);
                 }
