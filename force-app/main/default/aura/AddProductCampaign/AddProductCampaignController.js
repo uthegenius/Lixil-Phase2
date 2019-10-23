@@ -1,6 +1,4 @@
 ({
-
-    
  	// following two methods are for the switching of tabs
     AddProductTab: function(component, event, helper) {
         var tab1 = component.find('AddProducId');

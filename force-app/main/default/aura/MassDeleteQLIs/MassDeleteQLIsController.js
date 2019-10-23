@@ -35,13 +35,26 @@
        component.set("v.isLoading", true);
         var dep1 = component.find("dependent");
       var listOfId = [];
-    for(var i=0;i<dep1.length;i++){
+       if(Array.isArray(dep1)){
+            dep1.forEach(function(cb){
+                var cond = cb.get("v.value");
+                if( cond == true){
+                  listOfId.push(cb.get("v.text"));
+                  }         
+            });
+       } else{
+           var cond = dep1.get("v.value");
+        if( cond == true){
+          listOfId.push(dep1.get("v.text"));
+          } 
+       }
+    /*for(var i=0;i<dep1.length;i++){
         var cond = dep1[i].get("v.value");
         if( cond == true){
           listOfId.push(component.find("dependent")[i].get("v.text"));
           }  
         
-       } 
+       } */
        console.log('KA:: selectd id' + listOfId);
        component.set("v.massDeleteList" , listOfId);       
          var delIdsPassInClass = component.get("v.massDeleteList");
@@ -120,16 +133,26 @@
     
     checkAllCheckboxes : function(component, event, helper) {
         var slctCheck = event.getSource().get("v.value");
+        console.log(slctCheck);
         var getCheckAllId = component.find("dependent");
+        console.log(getCheckAllId);
         
         if (slctCheck == true) {
-            for (var i = 0; i < getCheckAllId.length; i++) {
-                component.find("dependent")[i].set("v.value", true);             
-            }
+            if(Array.isArray(getCheckAllId)){
+            getCheckAllId.forEach(function(cb){
+                cb.set("v.value", true);             
+            });
+        } else{
+            getCheckAllId.set("v.value",true);
+        }
         } else {
-            for (var i = 0; i < getCheckAllId.length; i++) {
-                component.find("dependent")[i].set("v.value", false);
-            }
+    		if(Array.isArray(getCheckAllId)){
+            getCheckAllId.forEach(function(cb){
+                cb.set("v.value", true);             
+            });
+        } else{
+            getCheckAllId.set("v.value",true);
+        }
         }
     }
     

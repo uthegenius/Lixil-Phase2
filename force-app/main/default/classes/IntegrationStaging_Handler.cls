@@ -5,6 +5,9 @@ public class IntegrationStaging_Handler {
             map<string,Contact> mapContact = new map<string,Contact>();
             map<string,Asset> mapAsset = new map<string,Asset>();
             map<string,case> mapCase = new map<string,Case>();
+            
+            Account__c customAccount = Account__c.getInstance();
+            
             for(Integration_Staging__c element:Data){
                 try{
                     Contact aContact = new Contact();
@@ -29,8 +32,9 @@ public class IntegrationStaging_Handler {
                         aContact.Phone = element.Field_16__c;
                         aContact.Email = element.Field_17__c;
                         aContact.ByPassVal__c = True;
-                        aContact.AccountId='0011k00000DZmVrAAL'; // For Sandbox
+                        //aContact.AccountId='0011k00000DZmVrAAL'; // For Sandbox
                         //aContact.AccountId='0013l00002038ij';	   // For Production
+                        aContact.AccountId = customAccount.Account_Id__c;
                         aContact.BP_External_Id__c  = element.Field_17__c;
                         aContact.Company__c  = element.Field_30__c;
                         aContact.Newsletter_Signup__c = element.Field_40__c;
@@ -248,6 +252,8 @@ public class IntegrationStaging_Handler {
             
             System.debug('Input Data ==> ' + Data);
             
+            Account__c customAccount = Account__c.getInstance();
+            
             String statusString = '';	// Status string to be sent back
             
             for(Integration_Staging__c element:Data){
@@ -271,8 +277,9 @@ public class IntegrationStaging_Handler {
                         aContact.MailingState = element.Field_12__c;
                         aContact.MailingPostalCode = element.Field_13__c;
                         aContact.MailingCountry  = element.Field_15__c;
-                        aContact.AccountId='0011k00000DZmVrAAL'; // For Sandbox
+                        //aContact.AccountId='0011k00000DZmVrAAL'; // For Sandbox
                         //aContact.AccountId='0013l00002038ij';      // For Production
+                        aContact.AccountId = customAccount.Account_Id__c;
                         aContact.Phone = element.Field_16__c;
                         aContact.Email = element.Field_17__c;
                         aContact.ByPassVal__c = True;

@@ -3,7 +3,9 @@ public class Informatica_Order_Callout {
     static list<InformaticaResponse> pro;
     public static list<InformaticaResponse> callShippmentDetail(string pOrderId){
             HttpRequest req = new HttpRequest();
-            req.setEndpoint('callout:Informatica_Quote//active-bpel/soap/OrderShippingDetail');
+        Lixil_Configuration__mdt conf = [Select Value__c From Lixil_Configuration__mdt WHERE QualifiedApiName='InformaticaOrgIdentifier' limit 1];
+        
+            req.setEndpoint('callout:Informatica_Quote//active-bpel/soap/OrderShippingDetail'+'-'+conf.Value__c);
             req.setHeader('Content-Type', 'text/xml; charset=utf-8');
             req.setHeader('SOAPAction', '"OrderShippingDetail"');
             req.setMethod('POST');

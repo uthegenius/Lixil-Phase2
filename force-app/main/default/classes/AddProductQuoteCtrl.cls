@@ -254,7 +254,7 @@ public class AddProductQuoteCtrl {
                     QLIObj.AlternateProduct__C = QuoteProductWrapperObj.ProductAlterNumber;
                     QLIObj.Location__C = QuoteProductWrapperObj.Location; 
                     QLIObj.PriceBookEntryId = MapProductCodeToPBE.get( QuoteProductWrapperObj.ProductCode.toLowerCase() ).Id;
-                    QLIObj.UnitPrice = MapProductCodeToPBE.get( QuoteProductWrapperObj.ProductCode.toLowerCase() ).UnitPrice; 
+                    QLIObj.UnitPrice = QuoteProductWrapperObj.RequestedPrice; 
                     
                     
                     if( QuoteObj.Final_Quote__c && MapProductCodeToQLI.get( QuoteProductWrapperObj.ProductCode.toLowerCase() ) != null ){   
@@ -314,7 +314,23 @@ public class AddProductQuoteCtrl {
                     QuoteProductWrapper2 QuoteProductWrapper2Obj = new QuoteProductWrapper2();
                     List<String> ListTempString = StringRowObj.split( '</td>' );
                     
-                    if( ListTempString.size() == 4 && StringRowObj.contains('<td>') ){
+                    if( ListTempString.size() == 5 && StringRowObj.contains('<td>') ){
+                        if( ListTempString[0].replace('<td>','').trim() != '' ){
+                            QuoteProductWrapper2Obj.ProductCode = ListTempString[0].replace('<td>','');
+                        }
+                        if( ListTempString[1].replace('<td>','').trim() != '' ){
+                            QuoteProductWrapper2Obj.ProductQuantity = Integer.valueOf( ListTempString[1].replace('<td>','').trim() ) ;
+                        }
+                        if( ListTempString[2].replace('<td>','').trim() != '' ){
+                            QuoteProductWrapper2Obj.ProductAlterNumber = Integer.valueOf( ListTempString[2].replace('<td>','').trim() );
+                        }
+                        if( ListTempString[3].replace('<td>','').trim() != '' ){
+                            QuoteProductWrapper2Obj.Location = ListTempString[3].replace('<td>','').trim();
+                        }
+                        if( ListTempString[4].replace('<td>','').trim() != '' ){
+                            QuoteProductWrapper2Obj.RequestedPrice = decimal.valueOf(ListTempString[4].replace('<td>','').trim());
+                        }
+                    }else if( ListTempString.size() == 4 && StringRowObj.contains('<td>') ){
                         if( ListTempString[0].replace('<td>','').trim() != '' ){
                             QuoteProductWrapper2Obj.ProductCode = ListTempString[0].replace('<td>','');
                         }
@@ -337,7 +353,7 @@ public class AddProductQuoteCtrl {
                         if( ListTempString[2].replace('<td>','').trim() != '' ){
                             QuoteProductWrapper2Obj.ProductAlterNumber = Integer.valueOf( ListTempString[2].replace('<td>','').trim() );
                         }
-                    }else if( ListTempString.size() == 2 && StringRowObj.contains('<td>') && StringRowObj.length() > 4 ){
+                    }else if( ListTempString.size() == 2 && StringRowObj.contains('<td>') && StringRowObj.length() > 5 ){
                         if( ListTempString[0].replace('<td>','').trim() != '' ){
                             QuoteProductWrapper2Obj.ProductCode = ListTempString[0].replace('<td>','');
                         }
@@ -428,6 +444,7 @@ public class AddProductQuoteCtrl {
         @AuraEnabled public Boolean IsValidQuantity { Get;Set; }
         @AuraEnabled public Boolean IsProductAllowed { Get;Set; }
         @AuraEnabled public String NotAllowedReason { Get;Set; }
+        @AuraEnabled public Decimal RequestedPrice { Get;Set; }
         
         public QuoteProductWrapper(){}
         
@@ -444,6 +461,7 @@ public class AddProductQuoteCtrl {
             IsValidQuantity = true;
             IsProductAllowed = true;
             NotAllowedReason = '';
+            RequestedPrice = 0.00;
         }
         
         public QuoteProductWrapper(Integer paramSerial, QuoteProductWrapper2 paramQuoteProductWrapper2 ){
@@ -459,6 +477,7 @@ public class AddProductQuoteCtrl {
             IsValidQuantity = true;
             IsProductAllowed = true;
             NotAllowedReason = '';
+            RequestedPrice = paramQuoteProductWrapper2.RequestedPrice;
         }
         
     }
@@ -468,12 +487,14 @@ public class AddProductQuoteCtrl {
         private Integer ProductQuantity { Get;Set; }
         private Integer ProductAlterNumber { Get;Set; }
         private String Location { Get;Set; }
+        private Decimal RequestedPrice { Get;Set; }
         
         public QuoteProductWrapper2(){
             ProductCode = null;
             ProductQuantity = 0;
             ProductAlterNumber = null;
             Location = null;
+            RequestedPrice = 0.00;
         }
     }
 }

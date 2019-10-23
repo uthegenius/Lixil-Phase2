@@ -5,8 +5,9 @@ public class Informatica_Quote_Callout {
         /*if(Test.isRunningTest()) {
 Test.setMock(HttpCalloutMock.class, new Informatica_WebserviceMock());
 }*/
+        Lixil_Configuration__mdt conf = [Select Value__c From Lixil_Configuration__mdt WHERE QualifiedApiName='InformaticaOrgIdentifier' limit 1];
         HttpRequest req = new HttpRequest();
-        req.setEndpoint('callout:Informatica_Quote/active-bpel/soap/PriceReview');
+        req.setEndpoint('callout:Informatica_Quote/active-bpel/soap/PriceReview'+'-'+conf.Value__c);
         req.setHeader('Content-Type', 'text/xml; charset=utf-8');
         req.setHeader('SOAPAction', '"PriceReview"');
         req.setTimeout(120000);

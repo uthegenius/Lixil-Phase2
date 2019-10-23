@@ -19,7 +19,7 @@
                 <div class="slds-media__figure">
                     <legend> <a href="#">Quote </a> > <a href="{!v.quoteURL}">  {!v.quoteName}</a></legend> 
                     
-                    <h1 style="font-size:20px; font-weigth:bold"> Quote Line Items </h1>
+                    <h1 style="font-size:20px; font-weight:bold"> Quote Line Items </h1>
                 </div>
             </header>
         </div>
